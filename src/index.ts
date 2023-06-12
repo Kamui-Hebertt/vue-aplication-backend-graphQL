@@ -1,10 +1,11 @@
 import { ApolloServer } from "@apollo/server";
 import { gql } from "apollo-server";
-import {Book} from './data/types/Book'
+import { Book } from './data/types/Book'
 import schema from './graphql/schema/schema';
 
 
 import { startStandaloneServer } from "@apollo/server/standalone"
+import { performAsCodegen } from "./codegen";
 
 const books:Book[] = [
   {
@@ -44,9 +45,11 @@ const server = new ApolloServer({
 schema
 
 })
+performAsCodegen();
+
 const startServer = async () => {
 
-  const { url } = await startStandaloneServer(server,{listen: {port: 4000}})
+  const { url } = await startStandaloneServer(server,{listen: {port: 4001}})
   
   console.log(`🚀 Server ready at ${url}`)
 }
